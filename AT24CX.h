@@ -33,7 +33,7 @@ THE SOFTWARE.
 // byte
 typedef uint8_t byte;
 
-// AT24Cx I2C adress
+// AT24Cx I2C address
 // 80
 // 0x50
 #define AT24CX_ID B1010000
@@ -69,35 +69,35 @@ private:
 	byte _wireLibStarted;
 };
 
-// AT24C32 class definiton
+// AT24C32 class definition
 class AT24C32 : public AT24CX {
 public:
 	AT24C32();
 	AT24C32(byte index);
 };
 
-// AT24C64 class definiton
+// AT24C64 class definition
 class AT24C64 : public AT24CX {
 public:
 	AT24C64();
 	AT24C64(byte index);
 };
 
-// AT24C128 class definiton
+// AT24C128 class definition
 class AT24C128 : public AT24CX {
 public:
 	AT24C128();
 	AT24C128(byte index);
 };
 
-// AT24C256 class definiton
+// AT24C256 class definition
 class AT24C256 : public AT24CX {
 public:
 	AT24C256();
 	AT24C256(byte index);
 };
 
-// AT24C512 class definiton
+// AT24C512 class definition
 class AT24C512 : public AT24CX {
 public:
 	AT24C512();
