@@ -131,8 +131,8 @@ void AT24CX::write(unsigned int address, byte data) {
     Wire.beginTransmission(_id);
     if(Wire.endTransmission()==0) {
     	Wire.beginTransmission(_id);
-    	Wire.write((byte)address >> 8);
-    	Wire.write((byte)address & 0xFF);
+    	Wire.write((int)address >> 8);
+    	Wire.write((int)address & 0xFF);
       	Wire.write((byte)data);
     	Wire.endTransmission();
     	delay(20);
@@ -214,6 +214,64 @@ void AT24CX::readChars(unsigned int address, char *data, int n) {
 }
 
 /**
+* Update byte, return true if data has been written on EEPROM
+*/
+bool AT24CX::update(unsigned int address, byte data) 
+{
+	if (read(address) == data) return false;
+	write(address, data);
+	return true;
+}
+
+/**
+* Update int, return true if data has been written on EEPROM
+*/
+
+bool AT24CX::updateInt(unsigned int address, unsigned int data)
+{
+	if (readInt(address) == data) return false;
+	writeInt(address, data);
+	return true;
+}
+
+/**
+* Update unsigned long, return true if data has been written on EEPROM
+*/
+
+bool AT24CX::updateLong(unsigned int address, unsigned long data)
+{
+	if (readLong(address) == data) return false;
+	writeLong(address, data);
+	return true;
+}
+
+/**
+* Update float, return true if data has been written on EEPROM
+*/
+bool AT24CX::updateFloat(unsigned int address, float data)
+{
+	if (readFloat(address) == data) return false;
+	writeFloat(address, data);
+	return true;
+}
+
+/**
+* Update double, return true if data has been written on EEPROM
+*/
+bool AT24CX::updateDouble(unsigned int address, double data)
+{
+	if (readDouble(address) == data) return false;
+	writeDouble(address, data);
+	return true;
+}
+
+//NOT IMPLEMENTED
+bool AT24CX::updateChars(unsigned int address, char* data, int length)
+{
+	return false;
+}
+
+/**
  * Write sequence of n bytes
  */
 void AT24CX::write(unsigned int address, byte *data, int n) {
@@ -244,8 +302,8 @@ void AT24CX::write(unsigned int address, byte *data, int offset, int n) {
     Wire.beginTransmission(_id);
     if (Wire.endTransmission()==0) {
      	Wire.beginTransmission(_id);
-    	Wire.write((byte)address >> 8);
-    	Wire.write((byte)address & 0xFF);
+    	Wire.write((int)address >> 8);
+    	Wire.write((int)address & 0xFF);
     	byte *adr = data+offset;
     	Wire.write(adr, n);
     	Wire.endTransmission();
@@ -263,8 +321,8 @@ byte AT24CX::read(unsigned int address) {
 	Wire.beginTransmission(_id);
     if (Wire.endTransmission()==0) {
      	Wire.beginTransmission(_id);
-    	Wire.write((byte)address >> 8);
-    	Wire.write((byte)address & 0xFF);
+    	Wire.write((int)address >> 8);
+    	Wire.write((int)address & 0xFF);
     	if (Wire.endTransmission()==0) {
 			Wire.requestFrom(_id, 1);
 			while (Wire.available() > 0 && r<1) {
@@ -304,8 +362,8 @@ void AT24CX::read(unsigned int address, byte *data, int offset, int n) {
 	Wire.beginTransmission(_id);
     if (Wire.endTransmission()==0) {
      	Wire.beginTransmission(_id);
-    	Wire.write((byte)address >> 8);
-    	Wire.write((byte)address & 0xFF);
+    	Wire.write((int)address >> 8);
+    	Wire.write((int)address & 0xFF);
     	if (Wire.endTransmission()==0) {
 			int r = 0;
     		Wire.requestFrom(_id, n);

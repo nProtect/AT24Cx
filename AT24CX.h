@@ -43,6 +43,8 @@ class AT24CX {
 public:
 	AT24CX();
 	AT24CX(byte index, byte pageSize);
+
+	//Write Functions
 	void write(unsigned int address, byte data);
 	void write(unsigned int address, byte *data, int n);
 	void writeInt(unsigned int address, unsigned int data);
@@ -50,6 +52,8 @@ public:
 	void writeFloat(unsigned int address, float data);
 	void writeDouble(unsigned int address, double data);
 	void writeChars(unsigned int address, char *data, int length);
+
+	//Read Functions
 	byte read(unsigned int address);
 	void read(unsigned int address, byte *data, int n);
 	unsigned int readInt(unsigned int address);
@@ -57,8 +61,17 @@ public:
 	float readFloat(unsigned int address);
 	double readDouble(unsigned int address);
 	void readChars(unsigned int address, char *data, int n);
+
+	bool update(unsigned int address, byte data);
+	bool updateInt(unsigned int address, unsigned int data);
+	bool updateLong(unsigned int address, unsigned long data);
+	bool updateFloat(unsigned int address, float data);
+	bool updateDouble(unsigned int address, double data);
+	bool updateChars(unsigned int address, char* data, int length);
+
 protected:
 	void init(byte index, byte pageSize);
+
 private:
 	void startWireIfNeeded();
 	void read(unsigned int address, byte *data, int offset, int n);
